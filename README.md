@@ -1,44 +1,64 @@
-## sitsmcp
+## sitsmcp <img src=".github/logo.svg" align="right" height="220" alt="dragoman logo" />
 
-[MCP](https://modelcontextprotocol.io) server exposing SITS R package documentation, function reference, and references
+[MCP](https://modelcontextprotocol.io) server exposing SITS R package documentation, function reference, and references.
 
 ## Installation
 
-Requires Python 3.11+ and [uv](https://docs.astral.sh/uv/).
+To run the `sitsmcp`, you need to have Python 3.11+ and [uv](https://docs.astral.sh/uv/) installed. Then, to install it, first clone the repository:
 
 ```bash
 git clone https://github.com/m3nin0-labs/sitsmcp.git
+```
+
+Then, access the repository downloaded:
+
+```bash
 cd sitsmcp
+```
+
+Finally, you can `sync` the dependencies:
+
+```
 uv sync
 ```
 
 ## Usage
 
-Build the database, index the content, then serve it over MCP:
+To start using `sitsmcp`, you first need to create the database (SQLite) for it:
 
 ```bash
-uv run sitsmcp db init         # 1. create the database schema
-uv run sitsmcp index all       # 2. index the reference, book and articles
-uv run sitsmcp serve           # 3. start the MCP server over HTTP
+sitsmcp db init
 ```
 
-The server listens on `http://127.0.0.1:8000/mcp` by default. Run `uv run sitsmcp workflow` for the guided setup, or use `index reference`, `index docs` and `index references` to index sources individually.
+Next, index the reference, book and articles from `sits`:
+
+```bash
+sitsmcp index all
+```
+
+Then, you can run the server:
+
+```bash
+sitsmcp serve 
+```
+
+The server listens on `http://127.0.0.1:8000/mcp` by default.
 
 ## Configuration
 
-Point your MCP client at the running server URL:
+Settings are optional and read from environment variables (prefix `SITSMCP_`) or a `.env` file. See [`.env.example`](.env.example) for the full list and defaults.
 
-```json
-{
-  "mcpServers": {
-    "sitsmcp": {
-      "url": "http://127.0.0.1:8000/mcp"
-    }
-  }
-}
+## Production
+
+For production environments, you can run the server behind `nginx` and gunicorn (multiple workers) via Docker Compose:
+
+```bash
+docker compose up --build
 ```
 
-Settings are optional and read from environment variables (prefix `SITSMCP_`) or a `.env` file. The most common are the bind address, `SITSMCP_HOST` (default `127.0.0.1`) and `SITSMCP_PORT` (default `8000`). See [`.env.example`](.env.example) for the full list and defaults.
+The Docker Compose builds an image for the `sitsmcp`, which bakes in the pre-built database and the embedding model. The Compose also stars an `nginx`, which exposes the server on port `80`.
+
+**Note**: Tune the number of gunicorn workers with `WEB_CONCURRENCY` (default `2`). Each worker loads its own copy of the embedding model (`~1.3 GB` of RAM), so raise this only in line with available memory.
 
 ## MCP Tools
 

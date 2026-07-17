@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 500 577"
+   width="500"
+   height="577"
+   version="1.1"
+   id="svg31"
+   sodipodi:docname="sitsmcp_hex (2) copy.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview31"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.96568482"
+     inkscape:cx="147.56367"
+     inkscape:cy="301.34055"
+     inkscape:window-width="1920"
+     inkscape:window-height="937"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg31" />
+  <title
+     id="title1">sitsmcp</title>
+  <desc
+     id="desc1">Hex sticker for sitsmcp: SITS data cube styled as a service device. The display panel shows a satellite tile with one highlighted pixel. Wordmark {sitsmcp} sits below.</desc>
+  <defs
+     id="defs1">
+    <clipPath
+       id="hex">
+      <polygon
+         points="250,12 491,149 491,428 250,566 9,428 9,149"
+         id="polygon1" />
+    </clipPath>
+  </defs>
+  <polygon
+     points="250,12 491,149 491,428 250,566 9,428 9,149"
+     fill="#f2e4c9"
+     id="polygon2" />
+  <g
+     clip-path="url(#hex)"
+     id="g30"
+     transform="matrix(1.4376846,0,0,1.551829,-104.49223,-83.728624)">
+    <g
+       transform="translate(140,170)"
+       id="g29">
+      <polygon
+         points="180,0 210,-30 210,80 180,110 "
+         fill="#e8d5a3"
+         stroke="#1e3a5f"
+         stroke-width="2.2"
+         stroke-linejoin="round"
+         id="polygon3" />
+      <g
+         stroke="#1e3a5f"
+         stroke-width="0.9"
+         opacity="0.4"
+         id="g5">
+        <line
+           x1="180"
+           y1="27.5"
+           x2="210"
+           y2="-2.5"
+           id="line3" />
+        <line
+           x1="180"
+           y1="55"
+           x2="210"
+           y2="25"
+           id="line4" />
+        <line
+           x1="180"
+           y1="82.5"
+           x2="210"
+           y2="52.5"
+           id="line5" />
+      </g>
+      <polygon
+         points="0,0 30,-30 210,-30 180,0 "
+         fill="#eed6a0"
+         stroke="#1e3a5f"
+         stroke-width="2.2"
+         stroke-linejoin="round"
+         id="polygon5" />
+      <rect
+         x="0"
+         y="0"
+         width="180"
+         height="110"
+         fill="#f6ebc9"
+         stroke="#1e3a5f"
+         stroke-width="2.2"
+         id="rect5" />
+      <rect
+         x="10"
+         y="10"
+         width="160"
+         height="76"
+         fill="#1e3a5f"
+         stroke="#1e3a5f"
+         stroke-width="1.3"
+         rx="2.5"
+         id="rect6" />
+      <g
+         transform="translate(15,15)"
+         id="g27">
+        <rect
+           x="0"
+           y="0"
+           width="30"
+           height="22"
+           fill="#7a9d5c"
+           id="rect7" />
+        <rect
+           x="30"
+           y="0"
+           width="30"
+           height="22"
+           fill="#a6c179"
+           id="rect8" />
+        <rect
+           x="60"
+           y="0"
+           width="30"
+           height="22"
+           fill="#8fb069"
+           id="rect9" />
+        <rect
+           x="90"
+           y="0"
+           width="30"
+           height="22"
+           fill="#c4a86b"
+           id="rect10" />
+        <rect
+           x="120"
+           y="0"
+           width="30"
+           height="22"
+           fill="#7a9d5c"
+           id="rect11" />
+        <rect
+           x="0"
+           y="22"
+           width="30"
+           height="22"
+           fill="#a6c179"
+           id="rect12" />
+        <rect
+           x="30"
+           y="22"
+           width="30"
+           height="22"
+           fill="#8fb069"
+           id="rect13" />
+        <rect
+           x="60"
+           y="22"
+           width="30"
+           height="22"
+           fill="#c4a86b"
+           id="rect14" />
+        <rect
+           x="90"
+           y="22"
+           width="30"
+           height="22"
+           fill="#d97757"
+           id="rect15" />
+        <rect
+           x="120"
+           y="22"
+           width="30"
+           height="22"
+           fill="#e6b34d"
+           id="rect16" />
+        <rect
+           x="0"
+           y="44"
+           width="30"
+           height="22"
+           fill="#8fb069"
+           id="rect17" />
+        <rect
+           x="30"
+           y="44"
+           width="30"
+           height="22"
+           fill="#c4a86b"
+           id="rect18" />
+        <rect
+           x="60"
+           y="44"
+           width="30"
+           height="22"
+           fill="#a6c179"
+           id="rect19" />
+        <rect
+           x="90"
+           y="44"
+           width="30"
+           height="22"
+           fill="#8fb069"
+           id="rect20" />
+        <rect
+           x="120"
+           y="44"
+           width="30"
+           height="22"
+           fill="#c4a86b"
+           id="rect21" />
+        <g
+           stroke="#1e3a5f"
+           stroke-width="0.4"
+           fill="none"
+           opacity="0.5"
+           id="g26">
+          <line
+             x1="30"
+             y1="0"
+             x2="30"
+             y2="66"
+             id="line21" />
+          <line
+             x1="60"
+             y1="0"
+             x2="60"
+             y2="66"
+             id="line22" />
+          <line
+             x1="90"
+             y1="0"
+             x2="90"
+             y2="66"
+             id="line23" />
+          <line
+             x1="120"
+             y1="0"
+             x2="120"
+             y2="66"
+             id="line24" />
+          <line
+             x1="0"
+             y1="22"
+             x2="150"
+             y2="22"
+             id="line25" />
+          <line
+             x1="0"
+             y1="44"
+             x2="150"
+             y2="44"
+             id="line26" />
+        </g>
+        <rect
+           x="90"
+           y="22"
+           width="30"
+           height="22"
+           fill="none"
+           stroke="#f6ebc9"
+           stroke-width="1.7"
+           id="rect26" />
+      </g>
+      <circle
+         cx="18"
+         cy="99"
+         r="2.5999999"
+         fill="#a6c179"
+         id="circle27" />
+      <circle
+         cx="28"
+         cy="99"
+         r="2.5999999"
+         fill="#d97757"
+         id="circle28" />
+      <line
+         x1="152"
+         y1="97"
+         x2="167"
+         y2="97"
+         stroke="#1e3a5f"
+         stroke-width="1.3"
+         opacity="0.6"
+         id="line28" />
+      <line
+         x1="152"
+         y1="102"
+         x2="167"
+         y2="102"
+         stroke="#1e3a5f"
+         stroke-width="1.3"
+         opacity="0.6"
+         id="line29" />
+    </g>
+  </g>
+  <polygon
+     points="250,12 491,149 491,428 250,566 9,428 9,149"
+     fill="none"
+     stroke="#1e3a5f"
+     stroke-width="6"
+     stroke-linejoin="round"
+     id="polygon30" />
+  <polygon
+     points="250,28 476,157 476,420 250,551 24,420 24,157"
+     fill="none"
+     stroke="#1e3a5f"
+     stroke-width="1"
+     opacity="0.35"
+     stroke-linejoin="round"
+     id="polygon31" />
+  <text
+     x="250.73224"
+     y="457.32233"
+     text-anchor="middle"
+     fill="#1e3a5f"
+     font-family="Georgia, 'DM Serif Display', serif"
+     font-size="52px"
+     font-weight="700"
+     id="text31">sits mcp</text>
+</svg>
