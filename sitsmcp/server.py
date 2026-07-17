@@ -74,6 +74,9 @@ def sits_search_references(query: str) -> list[str]:
 	return operations.search_references(query)
 
 
+#
+# MCP Server
+#
 def main(host: str, port: int) -> None:
 	"""Run the MCP server over HTTP.
 
