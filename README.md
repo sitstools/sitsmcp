@@ -85,4 +85,4 @@ Contributions are welcome. Please open an issue to discuss significant changes, 
 
 ## License
 
-`sitsmcp` is distributed under the GPL-2.0-only license. See [LICENSE](./LICENSE) for the full text.
+`sitsmcp` is distributed under the GPL-v3.0 license. See [LICENSE](./LICENSE) for the full text.
