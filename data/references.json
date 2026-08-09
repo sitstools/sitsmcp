@@ -1,1 +1,371 @@
-[]
+[
+  {
+    "id": "shibuya2025crosstemporal",
+    "title": "Cross-temporal domain generalization approach combined with self-organizing-maps for classifying MODIS time series data",
+    "authors": [
+      "Daniel H. Shibuya",
+      "Júlio C.D.M. Esquerdo",
+      "João P.S. Werner",
+      "André S. Tavares",
+      "Filipe C. Felix"
+    ],
+    "year": 2025,
+    "venue": "International Journal of Remote Sensing",
+    "doi": "10.1080/01431161.2025.2527988",
+    "url": "https://doi.org/10.1080/01431161.2025.2527988",
+    "domain": [
+      "methods",
+      "land-use"
+    ],
+    "abstract": ""
+  },
+  {
+    "id": "mobarakeh2025crop",
+    "title": "Employing Sentinel-2 time-series and noisy data quality control enhance crop classification in arid environments: A comparison of machine learning and deep learning methods",
+    "authors": [
+      "Zahra Mohammadi Mobarakeh",
+      "Saeid Pourmanafi",
+      "Mohsen Ahmadi"
+    ],
+    "year": 2025,
+    "venue": "International Journal of Applied Earth Observation and Geoinformation",
+    "doi": "10.1016/j.jag.2025.104678",
+    "url": "https://doi.org/10.1016/j.jag.2025.104678",
+    "domain": [
+      "agriculture"
+    ],
+    "abstract": ""
+  },
+  {
+    "id": "desimone2025quality",
+    "title": "Quality Control of Training Samples for Agricultural Statistics Using Earth Observation",
+    "authors": [
+      "Lorenzo de Simone",
+      "Estefanía Pizarro",
+      "Jonathan Paredes",
+      "Alberto Jopia",
+      "Gilberto Camara",
+      "Pierre Defourny",
+      "Sophie Bontemps"
+    ],
+    "year": 2025,
+    "venue": "Statistical Journal of the IAOS",
+    "doi": "10.1177/18747655251338033",
+    "url": "https://doi.org/10.1177/18747655251338033",
+    "domain": [
+      "agriculture",
+      "methods"
+    ],
+    "abstract": "Earth Observation (EO) data are widely used in agricultural statistics production. However, the accuracy of EO-based land use classification is limited because of the limitations of using in situ census or survey data as training sets for EO applications. In this work, we provide recommendations for National Statistical Offices (NSO) to design in situ data collection campaigns that benefit both conventional statistics and EO-based assessments. Our recommendations are supported by a case study done by Chile's NSO (Instituto Nacional de Estadistica). The case study describes two methods for quality control of training samples used in EO image classification for agricultural statistics. The study describes methods for improving training samples for EO-based machine learning classification, which combines self-organised maps (SOM) with the sample balancing method SMOTE. Using the proposed method, the accuracy of the classification model increased from 95.2% to 98.5%, while the F1-scores for most classes also saw substantial improvements. The results suggest that combining multisensor EO data and advanced machine learning should be the focus of future research to enhance complex agricultural landscape classification."
+  },
+  {
+    "id": "freitas2025temporarycrops",
+    "title": "Monitoring temporary crops in IPU-CE using SAR time series images and machine learning",
+    "authors": [
+      "Ana Freitas",
+      "Fábio Gama",
+      "Felipe Souza"
+    ],
+    "year": 2025,
+    "venue": "Mercator (Fortaleza)",
+    "doi": "10.4215/rm2025.e24006",
+    "url": "https://doi.org/10.4215/rm2025.e24006",
+    "domain": [
+      "agriculture"
+    ],
+    "abstract": ""
+  },
+  {
+    "id": "sun2025winterwheat",
+    "title": "Deep learning classification of winter wheat from Sentinel optical-radar image time series in smallholder farming areas",
+    "authors": [
+      "Xiaofang Sun",
+      "Meng Wang",
+      "Junbang Wang",
+      "Guicai Li",
+      "Xuehui Hou"
+    ],
+    "year": 2025,
+    "venue": "Advances in Space Research",
+    "doi": "10.1016/j.asr.2024.11.038",
+    "url": "https://doi.org/10.1016/j.asr.2024.11.038",
+    "domain": [
+      "agriculture"
+    ],
+    "abstract": ""
+  },
+  {
+    "id": "souza2025eventbased",
+    "title": "An Event-Based Approach for Training Data Selection for Mapping Deforestation",
+    "authors": [
+      "Anielli Souza"
+    ],
+    "year": 2025,
+    "venue": "XXI Brazilian Symposium on Remote Sensing",
+    "url": "https://proceedings.science/sbsr-2025/trabalhos/an-event-based-approach-for-training-data-selection-for-mapping-deforestation",
+    "domain": [
+      "deforestation",
+      "methods"
+    ],
+    "abstract": ""
+  },
+  {
+    "id": "souza2025integration",
+    "title": "Integration of Radar and Optical Data for Identifying Tropical Forest Disturbances",
+    "authors": [
+      "Felipe Souza"
+    ],
+    "year": 2025,
+    "venue": "XXI Brazilian Symposium on Remote Sensing",
+    "url": "https://proceedings.science/sbsr-2025/trabalhos/integration-of-radar-and-optical-data-for-identifying-tropical-forest-disturbanc",
+    "domain": [
+      "forestry",
+      "deforestation"
+    ],
+    "abstract": ""
+  },
+  {
+    "id": "giuliani2024timefirst",
+    "title": "Time-First Approach for Land Cover Mapping Using Big Earth Observation Data Time-Series in a Data Cube – a Case Study from the Lake Geneva Region (Switzerland)",
+    "authors": [
+      "Gregory Giuliani"
+    ],
+    "year": 2024,
+    "venue": "Big Earth Data",
+    "doi": "10.1080/20964471.2024.2323241",
+    "url": "https://doi.org/10.1080/20964471.2024.2323241",
+    "domain": [
+      "land-use",
+      "data-cube"
+    ],
+    "abstract": ""
+  },
+  {
+    "id": "werner2024croplivestock",
+    "title": "Mapping Integrated Crop–Livestock Systems Using Fused Sentinel-2 and PlanetScope Time Series and Deep Learning",
+    "authors": [
+      "João P. S. Werner",
+      "Mariana Belgiu",
+      "Inacio T. Bueno",
+      "Aliny A. Dos Reis",
+      "Ana P. S. G. D. Toro",
+      "João F. G. Antunes",
+      "Alfred Stein",
+      "Rubens A. C. Lamparelli",
+      "Paulo S. G. Magalhães",
+      "Alexandre C. Coutinho",
+      "Júlio C. D. M. Esquerdo",
+      "Gleyce K. D. A. Figueiredo"
+    ],
+    "year": 2024,
+    "venue": "Remote Sensing",
+    "doi": "10.3390/rs16081421",
+    "url": "https://doi.org/10.3390/rs16081421",
+    "domain": [
+      "agriculture"
+    ],
+    "abstract": "Integrated crop–livestock systems (ICLS) are among the main viable strategies for sustainable agricultural production. Mapping these systems is crucial for monitoring land use changes in Brazil, playing a significant role in promoting sustainable agricultural production. Due to the highly dynamic nature of ICLS management, mapping them is a challenging task. The main objective of this research was to develop a method for mapping ICLS using deep learning algorithms applied on Satellite Image Time Series (SITS) data cubes, which consist of Sentinel-2 (S2) and PlanetScope (PS) satellite images, as well as data fused (DF) from both sensors. This study focused on two Brazilian states with varying landscapes and field sizes. Targeting ICLS, field data were combined with S2 and PS data to build land use and land cover classification models for three sequential agricultural years (2018/2019, 2019/2020, and 2020/2021). We tested three experimental settings to assess the classification performance using S2, PS, and DF data cubes. The test classification algorithms included Random Forest (RF), Temporal Convolutional Neural Network (TempCNN), Residual Network (ResNet), and a Lightweight Temporal Attention Encoder (L-TAE), with the latter incorporating an attention-based model, fusing S2 and PS within the temporal encoders. Experimental results did not show statistically significant differences between the three data sources for both study areas. Nevertheless, the TempCNN outperformed the other classifiers with an overall accuracy above 90% and an F1-Score of 86.6% for the ICLS class. By selecting the best models, we generated annual ICLS maps, including their surrounding landscapes. This study demonstrated the potential of deep learning algorithms and SITS to successfully map dynamic agricultural systems."
+  },
+  {
+    "id": "hadi2023landcover",
+    "title": "Leveraging Time-Series Imageries and Open Source Tools for Enhanced Land Cover Classification",
+    "authors": [
+      "Firman Hadi",
+      "Laode Muhammad Sabri",
+      "Yudo Prasetyo",
+      "Bambang Sudarsono"
+    ],
+    "year": 2023,
+    "venue": "IOP Conference Series: Earth and Environmental Science",
+    "doi": "10.1088/1755-1315/1276/1/012035",
+    "url": "https://doi.org/10.1088/1755-1315/1276/1/012035",
+    "domain": [
+      "land-use"
+    ],
+    "abstract": "The urgency of regularly updated land cover information is crucial for monitoring the dynamics of regional landscapes. Current land cover classification techniques are typically based on snapshots taken on specific dates; therefore, potential variations over time are ignored. This limitation is exacerbated in regions that require land cover classification professionals. To address these challenges, we propose the use of existing innovative and open-source tools. This study presents a comparative analysis of two methods: the first uses machine learning classification using Google Earth Engine and the second uses time-series imagery using R’s sits package. Both methods were tested to classify land cover in Sragen Regency, Central Java, Indonesia, and our results demonstrated the superiority of R’s sits package in terms of accuracy and reproducibility. This facilitated the acquisition of a more precise and comprehensive land cover classification and demonstrated a robust application. The sits package also benefits from being open -source, encouraging wider accessibility and collaboration in the scientific community. The implications of these results underscore the potential of leveraging time-series imagery and open-source tools such as the sits package in R for more accurate and reproducible land cover classification. This approach can significantly improve our ability to monitor and understand the dynamics of regional landscapes, particularly in areas with limited skilled human resources. Future research should refine these techniques and examine their applicability to different geographic contexts."
+  },
+  {
+    "id": "adorno2023urbanvegetation",
+    "title": "Contribution of time-series data cubes to classify urban vegetation types by remote sensing",
+    "authors": [
+      "Bruno Vargas Adorno",
+      "Thales Sehn Körting",
+      "Silvana Amaral"
+    ],
+    "year": 2023,
+    "venue": "Urban Forestry & Urban Greening",
+    "doi": "10.1016/j.ufug.2022.127817",
+    "url": "https://doi.org/10.1016/j.ufug.2022.127817",
+    "domain": [
+      "urban"
+    ],
+    "abstract": ""
+  },
+  {
+    "id": "santos2021qualitycontrol",
+    "title": "Quality control and class noise reduction of satellite image time series",
+    "authors": [
+      "Lorena A. Santos",
+      "Karine R. Ferreira",
+      "Gilberto Camara",
+      "Michelle C.A. Picoli",
+      "Rolf E. Simoes"
+    ],
+    "year": 2021,
+    "venue": "ISPRS Journal of Photogrammetry and Remote Sensing",
+    "doi": "10.1016/j.isprsjprs.2021.04.014",
+    "url": "https://doi.org/10.1016/j.isprsjprs.2021.04.014",
+    "domain": [
+      "methods"
+    ],
+    "abstract": ""
+  },
+  {
+    "id": "santos2021spatiotemporal",
+    "title": "Identifying Spatiotemporal Patterns in Land Use and Cover Samples from Satellite Image Time Series",
+    "authors": [
+      "Lorena Alves Santos",
+      "Karine Ferreira",
+      "Michelle Picoli",
+      "Gilberto Camara",
+      "Raul Zurita-Milla",
+      "Ellen-Wien Augustijn"
+    ],
+    "year": 2021,
+    "venue": "Remote Sensing",
+    "doi": "10.3390/rs13050974",
+    "url": "https://doi.org/10.3390/rs13050974",
+    "domain": [
+      "land-use",
+      "methods"
+    ],
+    "abstract": "The use of satellite image time series analysis and machine learning methods brings new opportunities and challenges for land use and cover changes (LUCC) mapping over large areas. One of these challenges is the need for samples that properly represent the high variability of land used and cover classes over large areas to train supervised machine learning methods and to produce accurate LUCC maps. This paper addresses this challenge and presents a method to identify spatiotemporal patterns in land use and cover samples to infer subclasses through the phenological and spectral information provided by satellite image time series. The proposed method uses self-organizing maps (SOMs) to reduce the data dimensionality creating primary clusters. From these primary clusters, it uses hierarchical clustering to create subclusters that recognize intra-class variability intrinsic to different regions and periods, mainly in large areas and multiple years. To show how the method works, we use MODIS image time series associated to samples of cropland and pasture classes over the Cerrado biome in Brazil. The results prove that the proposed method is suitable for identifying spatiotemporal patterns in land use and cover samples that can be used to infer subclasses, mainly for crop-types."
+  },
+  {
+    "id": "simoes2020matogrosso",
+    "title": "Land use and cover maps for Mato Grosso State in Brazil from 2001 to 2017",
+    "authors": [
+      "Rolf Simoes",
+      "Michelle C. A. Picoli",
+      "Gilberto Camara",
+      "Adeline Maciel",
+      "Lorena Santos",
+      "Pedro R. Andrade",
+      "Alber Sánchez",
+      "Karine Ferreira",
+      "Alexandre Carvalho"
+    ],
+    "year": 2020,
+    "venue": "Scientific Data",
+    "doi": "10.1038/s41597-020-0371-4",
+    "url": "https://doi.org/10.1038/s41597-020-0371-4",
+    "domain": [
+      "land-use",
+      "agriculture"
+    ],
+    "abstract": "This paper presents a dataset of yearly land use and land cover classification maps for Mato Grosso State, Brazil, from 2001 to 2017. Mato Grosso is one of the world’s fast moving agricultural frontiers. To ensure multi-year compatibility, the work uses MODIS sensor analysis-ready products and an innovative method that applies machine learning techniques to classify satellite image time series. The maps provide information about crop and pasture expansion over natural vegetation, as well as spatially explicit estimates of increases in agricultural productivity and trade-offs between crop and pasture expansion. Therefore, the dataset provides new and relevant information to understand the impact of environmental policies on the expansion of tropical agriculture in Brazil. Using such results, researchers can make informed assessments of the interplay between production and protection within Amazon, Cerrado, and Pantanal biomes."
+  },
+  {
+    "id": "picoli2020soybeanpasture",
+    "title": "Impacts of Public and Private Sector Policies on Soybean and Pasture Expansion in Mato Grosso—Brazil from 2001 to 2017",
+    "authors": [
+      "Michelle C. A. Picoli",
+      "Ana Rorato",
+      "Pedro Leitão",
+      "Gilberto Camara",
+      "Adeline Maciel",
+      "Patrick Hostert",
+      "Ieda Del’Arco Sanches"
+    ],
+    "year": 2020,
+    "venue": "Land",
+    "doi": "10.3390/land9010020",
+    "url": "https://doi.org/10.3390/land9010020",
+    "domain": [
+      "agriculture",
+      "land-use"
+    ],
+    "abstract": "Demand for agricultural exports in Brazil has stimulated the expansion of crop production and cattle raising, which has caused environmental impacts. In response, Brazil developed public policies such as the new Forest Code (FC) and supply chain arrangements such the Soy and the Cattle Moratoriums. This paper analyzes the effectiveness of these policies, considering the trajectories of agricultural expansion in the state of Mato Grosso in three years: 2005 (pre-moratorium and before the new FC), 2010 (post-moratorium and before the new FC) and 2017 (post-moratorium and post-new FC). Our analysis uses a detailed land use change data for both the Amazon and Cerrado biomes in Mato Grosso. In all the years considered, soybean expansion occurred in consolidated production areas and by conversion of pastures. Pasture expansion is influenced by existence of pastures nearby, by areas of secondary vegetation and deforestation. Our data and models show the effectiveness of public policies and private arrangements to reduce direct conversion from forests to crop production. However, our results also provide evidence that soybean expansion has caused indirect impacts by replacing pasture areas and causing pasture expansion elsewhere. Evidence from our work indicates that Brazil needs broader-ranging land use policies than what was done in the 2010s to be able to reach the land use goals stated in its Nationally Determined Contribution (NDC) to the Paris Agreement."
+  },
+  {
+    "id": "ferreira2020datacubes",
+    "title": "Earth Observation Data Cubes for Brazil: Requirements, Methodology and Products",
+    "authors": [
+      "Karine R. Ferreira",
+      "Gilberto R. Queiroz",
+      "Lubia Vinhas",
+      "Rennan F. B. Marujo",
+      "Rolf E. O. Simoes",
+      "Michelle C. A. Picoli",
+      "Gilberto Camara",
+      "Ricardo Cartaxo",
+      "Vitor C. F. Gomes",
+      "Lorena A. Santos",
+      "Alber H. Sanchez",
+      "Jeferson S. Arcanjo",
+      "José Guilherme Fronza",
+      "Carlos Alberto Noronha",
+      "Raphael W. Costa",
+      "Matheus C. Zaglia",
+      "Fabiana Zioti",
+      "Thales S. Korting",
+      "Anderson R. Soares",
+      "Michel E. D. Chaves",
+      "Leila M. G. Fonseca"
+    ],
+    "year": 2020,
+    "venue": "Remote Sensing",
+    "doi": "10.3390/rs12244033",
+    "url": "https://doi.org/10.3390/rs12244033",
+    "domain": [
+      "data-cube"
+    ],
+    "abstract": "Recently, remote sensing image time series analysis has being widely used to investigate the dynamics of environments over time. Many studies have combined image time series analysis with machine learning methods to improve land use and cover change mapping. In order to support image time series analysis, analysis-ready data (ARD) image collections have been modeled and organized as multidimensional data cubes. Data cubes can be defined as sets of time series associated with spatially aligned pixels. Based on lessons learned in the research project e-Sensing, related to national demands for land use and cover monitoring and related to state-of-the-art studies on relevant topics, we define the requirements to build Earth observation data cubes for Brazil. This paper presents the methodology to generate ARD and multidimensional data cubes from remote sensing images for Brazil. We describe the computational infrastructure that we are developing in the Brazil Data Cube project, composed of software applications and Web services to create, integrate, discover, access, and process the data sets. We also present how we are producing land use and cover maps from data cubes using image time series analysis and machine learning techniques."
+  },
+  {
+    "id": "maciel2020trajectories",
+    "title": "Identifying Land Use Change Trajectories in Brazil's Agricultural Frontier",
+    "authors": [
+      "Adeline M. Maciel",
+      "Michelle C. A. Picoli",
+      "Lubia Vinhas",
+      "Gilberto Camara"
+    ],
+    "year": 2020,
+    "venue": "Land",
+    "doi": "10.3390/land9120506",
+    "url": "https://doi.org/10.3390/land9120506",
+    "domain": [
+      "land-use",
+      "agriculture"
+    ],
+    "abstract": "Many of the world’s agricultural frontiers are located in the tropics. Crop and cattle expansion in these regions has a strong environmental impact. This paper examines land use and land cover transformations in Brazil, where large swaths of natural vegetation are being removed to make way for agricultural production. In Brazil, the land use dynamics are of great interest regarding the country’s sustainable development and climate mitigation actions, leading to the formulation and implantation of public policies and supply chain interventions to reduce deforestation. This paper uses temporal trajectory analysis to discuss the patterns of agricultural practices change in the different biomes of Mato Grosso State, one of Brazil’s agricultural frontiers. Taking yearly land use and cover classified images from 2001 to 2017, we identified, quantified, and spatialized areas of stability, intensification, reduction, interchange, and expansion of single and double cropping. The LUC Calculus was used as a tool to extract information about trajectories and trajectories of change. Over two decades, the land use change trajectories uncover the interplay between forest removal, cattle raising, grain production, and secondary vegetation regrowth. We observed a direct relationship between the conversion of forest areas to pasture and of pasture to agriculture areas in the Amazon portion of the Mato Grosso State in different periods. Our results enable a better understanding of trends in agricultural practices."
+  },
+  {
+    "id": "picoli2018brazilianagriculture",
+    "title": "Big Earth Observation Time Series Analysis for Monitoring Brazilian Agriculture",
+    "authors": [
+      "Michelle Cristina Araujo Picoli",
+      "Gilberto Camara",
+      "Ieda Sanches",
+      "Rolf Simões",
+      "Alexandre Carvalho",
+      "Adeline Maciel",
+      "Alexandre Coutinho",
+      "Julio Esquerdo",
+      "João Antunes",
+      "Rodrigo Anzolin Begotti",
+      "Damien Arvor",
+      "Claudio Almeida"
+    ],
+    "year": 2018,
+    "venue": "ISPRS Journal of Photogrammetry and Remote Sensing",
+    "doi": "10.1016/j.isprsjprs.2018.08.007",
+    "url": "https://doi.org/10.1016/j.isprsjprs.2018.08.007",
+    "domain": [
+      "agriculture",
+      "land-use"
+    ],
+    "abstract": ""
+  }
+]

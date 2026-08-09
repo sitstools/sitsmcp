@@ -31,7 +31,7 @@ WORKFLOW = """[bold cyan]sitsmcp setup workflow[/]
   [bold white]2.[/] [blue]Index the content[/] [dim](downloads the embedding model once)[/]
      [green]$ sitsmcp index reference[/]     [dim]# function reference (exact lookup)[/]
      [green]$ sitsmcp index docs[/]          [dim]# SITS book (semantic + keyword)[/]
-     [green]$ sitsmcp index references[/]    [dim]# articles from data/references.json[/]
+     [green]$ sitsmcp index references[/]    [dim]# citations from data/references.json (local)[/]
      [dim]or all at once:[/] [green]$ sitsmcp index all[/]
 
   [bold white]3.[/] [blue]Serve over MCP[/]
@@ -136,9 +136,7 @@ def _index_references(engine: Engine, settings: Settings) -> int:
 		int: The number of chunks stored.
 	"""
 	# parse references
-	chunks = data.parse_references(
-		settings.references_path, settings.chunk_size, settings.chunk_overlap
-	)
+	chunks = data.parse_references(settings.references_path)
 
 	# delete existing chunks
 	store.delete_source(engine, "reference_article")
@@ -209,7 +207,7 @@ def index_references() -> None:
 	count = _index_references(_prepare(settings), settings)
 
 	# inform user
-	console.print(f"[bold green]Done![/] Indexed [cyan]{count}[/] article chunks.")
+	console.print(f"[bold green]Done![/] Indexed [cyan]{count}[/] articles.")
 
 
 @index_app.command("all")
@@ -229,7 +227,7 @@ def index_all() -> None:
 	# inform user
 	console.print(
 		f"[bold green]Done![/] {functions} functions, {docs} book chunks, "
-		f"{articles} article chunks."
+		f"{articles} articles."
 	)
 
 

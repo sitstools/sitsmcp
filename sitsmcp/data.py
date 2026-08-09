@@ -16,8 +16,6 @@ from xml.etree import ElementTree
 import httpx
 import orjson
 import pydash as py_
-import pymupdf
-import pymupdf4llm
 from bs4 import BeautifulSoup, Tag
 from tqdm import tqdm
 
@@ -496,91 +494,36 @@ def _parse_reference_page(url: str, html: str) -> dict | None:
 #
 # Internal functions - reference articles
 #
-def _pdf_bytes_to_text(content: bytes) -> str:
-	"""Extract text from in-memory PDF bytes.
+def _render_reference(entry: dict) -> str:
+	"""Render a reference entry as a citation block.
 
 	Args:
-		content (bytes): The raw PDF bytes.
+		entry (dict): A reference entry from ``references.json``.
 
 	Returns:
-		str: The document text.
+		str: The rendered citation block.
 	"""
-	with pymupdf.open(stream=content, filetype="pdf") as doc:
-		return pymupdf4llm.to_markdown(doc, show_progress=False)
+	authors = ", ".join(py_.get(entry, "authors", []))
+	domains = ", ".join(py_.get(entry, "domain", []))
 
-
-def _html_to_text(html: str) -> str:
-	"""Extract text from an HTML article page.
-
-	Args:
-		html (str): The raw HTML.
-
-	Returns:
-		str: The article text.
-	"""
-	# parse
-	soup = BeautifulSoup(html, "lxml")
-	main = soup.find("main") or soup.find("article") or soup.find("body")
-
-	# get the target
-	target = main if isinstance(main, Tag) else soup
-
-	# return
-	return target.get_text(separator=" ", strip=True)
-
-
-def _parse_reference_article(
-	client: httpx.Client,
-	title: str,
-	url: str,
-	chunk_size: int,
-	chunk_overlap: int,
-) -> list[dict]:
-	"""Fetch and chunk a reference article.
-
-	Args:
-		client (httpx.Client): An open HTTP client.
-
-		title (str): The human-readable article title.
-
-		url (str): The article URL (PDF or HTML).
-
-		chunk_size (int): The maximum size of each chunk.
-
-		chunk_overlap (int): The overlap between consecutive chunks.
-
-	Returns:
-		list[dict]: The list of chunk dictionaries for the article.
-	"""
-	# fetch
-	response = client.get(url)
-	response.raise_for_status()
-
-	# check the content type
-	content_type = response.headers.get("content-type", "").lower()
-
-	is_pdf = "pdf" in content_type or url.lower().endswith(".pdf")
-
-	# extract the text
-	body = (
-		_pdf_bytes_to_text(response.content) if is_pdf else _html_to_text(response.text)
+	# build the header lines, dropping the ones without a value
+	header = py_.compact(
+		[
+			f"Title: {py_.get(entry, 'title', 'Untitled')}",
+			authors and f"Authors: {authors}",
+			f"Year: {py_.get(entry, 'year')} | Venue: {py_.get(entry, 'venue')}",
+			domains and f"Topics: {domains}",
+			# absent for entries published without a DOI
+			py_.get(entry, "doi") and f"DOI: {py_.get(entry, 'doi')}",
+			f"URL: {py_.get(entry, 'url')}",
+		]
 	)
 
-	# create the prefix
-	prefix = f"Article: {title}\nURL: {url}"
+	# get the abstract
+	abstract = py_.get(entry, "abstract", "").strip()
 
-	# create the chunks
-	return [
-		{
-			"id": _chunk_id("ref", url, str(i)),
-			"text": f"{prefix}\n\n{text}",
-			"source": "reference_article",
-			"title": title,
-			"url": url,
-			"function_name": None,
-		}
-		for i, text in enumerate(chunk_text(body, chunk_size, chunk_overlap))
-	]
+	# return the header on its own when there is no abstract
+	return "\n".join(header) + (f"\n\n{abstract}" if abstract else "")
 
 
 #
@@ -716,55 +659,40 @@ def parse_reference(base_url: str) -> list[dict]:
 	return records
 
 
-def parse_references(
-	references_path: Path,
-	chunk_size: int = 1000,
-	chunk_overlap: int = 200,
-) -> list[dict]:
-	"""Fetch and chunk reference articles.
+def parse_references(references_path: Path) -> list[dict]:
+	"""Build reference article records.
 
 	Args:
 		references_path (Path): Path to the ``references.json`` file.
 
-		chunk_size (int): The maximum size of each chunk.
-
-		chunk_overlap (int): The overlap between consecutive chunks.
-
 	Returns:
-		list[dict]: The list of reference article chunk dictionaries.
+		list[dict]: One chunk dictionary per reference article.
 
 	Raises:
 		FileNotFoundError: If ``references_path`` does not exist.
 	"""
+	chunks = []
 	entries = orjson.loads(references_path.read_bytes())
 
-	chunks = []
+	# iterate over the entries
+	for entry in entries:
+		url = py_.get(entry, "url")
 
-	# define client
-	with httpx.Client(timeout=HTTP_TIMEOUT, follow_redirects=True) as client:
-		# iterate over the entries
-		for entry in tqdm(entries, desc="Parsing reference articles", unit="article"):
-			# get the title and URL
-			title = py_.get(entry, "title", "Untitled")
-			url = py_.get(entry, "url")
+		# skip entries we could not cite
+		if not url:
+			continue
 
-			if not url:
-				continue
-
-			# parse the article
-			try:
-				chunks.extend(
-					_parse_reference_article(
-						client=client,
-						title=title,
-						url=url,
-						chunk_size=chunk_size,
-						chunk_overlap=chunk_overlap,
-					)
-				)
-
-			except httpx.HTTPError as error:
-				tqdm.write(f"Skipping {url}: {error}")
+		# build the record
+		chunks.append(
+			{
+				"id": _chunk_id("ref", py_.get(entry, "id", url)),
+				"text": _render_reference(entry),
+				"source": "reference_article",
+				"title": py_.get(entry, "title", "Untitled"),
+				"url": url,
+				"function_name": None,
+			}
+		)
 
 	# return!
 	return chunks
