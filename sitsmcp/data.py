@@ -254,6 +254,21 @@ def _extract_chapter_title(soup: BeautifulSoup) -> str | None:
 	return heading.get_text(strip=True) if heading else None
 
 
+def _close_section(title: str | None, texts: list[str]) -> list[tuple[str | None, str]]:
+	"""Close the section collected so far.
+
+	Args:
+		title (str | None): The section heading, or ``None`` before the first one.
+
+		texts (list[str]): The text blocks collected under the heading.
+
+	Returns:
+		list[tuple[str | None, str]]: A single ``(title, text)`` tuple, or nothing
+		at all when no text was collected under the heading.
+	"""
+	return [(title, "\n\n".join(texts))] if texts else []
+
+
 def _split_into_sections(main: Tag) -> list[tuple[str | None, str]]:
 	"""Split content into groups.
 
@@ -276,29 +291,26 @@ def _split_into_sections(main: Tag) -> list[tuple[str | None, str]]:
 		if not isinstance(element, Tag):
 			continue
 
-		# if the element is a heading, add the current text to the sections
-		if element.name in ("h2", "h3"):
-			# if content has been collected, add it to the sections
-			if current_texts:
-				sections.append((current_title, "\n\n".join(current_texts)))
-
-			# update current title variable
-			current_title = element.get_text(strip=True)
-
-			# reset current texts
-			current_texts = []
-
-		else:
+		# collect the text of everything that is not a heading
+		if element.name not in ("h2", "h3"):
 			text = element.get_text(separator=" ", strip=True)
 
 			if text:
 				current_texts.append(text)
 
-	# add last section
-	if current_texts:
-		sections.append((current_title, "\n\n".join(current_texts)))
+			continue
 
-	return sections
+		# a heading closes the section collected so far
+		sections.extend(_close_section(current_title, current_texts))
+
+		# update current title variable
+		current_title = element.get_text(strip=True)
+
+		# reset current texts
+		current_texts = []
+
+	# add last section
+	return sections + _close_section(current_title, current_texts)
 
 
 def _parse_book_page(

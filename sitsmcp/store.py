@@ -10,13 +10,14 @@
 """sitsmcp - Storage and retrieval module."""
 
 import re
-from collections import defaultdict
+import sqlite3
 from functools import lru_cache
 from pathlib import Path
 
 import sqlite_vec
 from fastembed import TextEmbedding
 from sqlalchemy import Engine, create_engine, event, text
+from sqlalchemy.pool import ConnectionPoolEntry
 from tqdm import tqdm
 
 #
@@ -207,7 +208,8 @@ def _fuse_rrf(ranked_lists: list[list[int]], rrf_k: int) -> list[int]:
 	Returns:
 		Row ids ordered by fused score, best first.
 	"""
-	scores = defaultdict(float)
+	# start every id seen by any retriever at zero
+	scores = {row_id: 0.0 for ranked in ranked_lists for row_id in ranked}
 
 	# iterate over the ranked lists
 	for ranked in ranked_lists:
@@ -291,7 +293,9 @@ def create_db_engine(db_path: Path) -> Engine:
 
 	# listen for new connections
 	@event.listens_for(engine, "connect")
-	def _load_extension(dbapi_conn, _record):
+	def _load_extension(
+		dbapi_conn: sqlite3.Connection, _record: ConnectionPoolEntry
+	) -> None:
 		# enable the extension
 		dbapi_conn.enable_load_extension(True)
 
