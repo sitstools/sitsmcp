@@ -4,7 +4,7 @@ FROM python:3.11-slim
 # uv for dependency management (pinned binary from the official image)
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-# Bake the embedding model into a stable cache path so workers start offline
+# Bake the embedding and reranker models into a stable cache path so workers start offline
 ENV FASTEMBED_CACHE_PATH=/opt/fastembed_cache \
     UV_LINK_MODE=copy \
     UV_COMPILE_BYTECODE=1
@@ -17,6 +17,9 @@ RUN uv sync --extra prod --no-dev --frozen --no-install-project
 
 # Pre-download the embedding model (~1.3 GB) at build time
 RUN uv run python -c "from fastembed import TextEmbedding; TextEmbedding('BAAI/bge-large-en-v1.5')"
+
+# Pre-download the default reranker (~80 MB), the one open use gets
+RUN uv run python -c "from fastembed.rerank.cross_encoder import TextCrossEncoder; TextCrossEncoder('Xenova/ms-marco-MiniLM-L-6-v2')"
 
 # Application code and the pre-built database
 COPY sitsmcp/ ./sitsmcp/
