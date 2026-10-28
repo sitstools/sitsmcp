@@ -147,7 +147,7 @@ def _ranking_of(
 	"""
 	try:
 		return reranker.rerank(query, [hit["text"] for hit in hits])
-	
+
 	except RerankError as error:
 		logger.warning("Reranking with %s failed: %s", reranker.name, error)
 		return None
@@ -286,13 +286,13 @@ class CohereReranker:
 		headers = {"Authorization": f"Bearer {self._api_key.get_secret_value()}"}
 
 		# call cohere
-		# > httpx encodes the header as ASCII, so a key with another character raises 
+		# > httpx encodes the header as ASCII, so a key with another character raises
 		# > a UnicodeError that holds the key
 		failure = None
-		
+
 		try:
 			response = self._client.post(COHERE_RERANK_URL, json=body, headers=headers)
-		
+
 		except (httpx.HTTPError, UnicodeError) as error:
 			failure = type(error).__name__
 
@@ -310,7 +310,7 @@ class CohereReranker:
 				(int(item["index"]), float(item["relevance_score"]))
 				for item in response.json()["results"]
 			]
-		
+
 		except (ValueError, KeyError, TypeError):
 			raise RerankError("Cohere rerank gave an unexpected answer") from None
 
@@ -339,7 +339,7 @@ class FastembedReranker:
 		"""
 		self.model = model
 		self.name = f"fastembed/{model}"
-		
+
 		# set the encoder and lock
 		self._encoder = None
 		self._lock = threading.Lock()
@@ -375,7 +375,7 @@ class FastembedReranker:
 		try:
 			encoder = self._loaded_encoder()
 			scores = [float(score) for score in encoder.rerank(query, documents)]
-		
+
 		except Exception as error:
 			raise RerankError(
 				f"fastembed rerank failed: {type(error).__name__}"
@@ -456,7 +456,7 @@ def rerankers_for(settings: Settings, client: str | None) -> list[Reranker]:
 	"""
 	if _is_key_client(client):
 		specs = [settings.key_reranker_model, settings.default_reranker_model]
-	
+
 	else:
 		specs = py_.filter_([settings.default_reranker_model], _is_local)
 

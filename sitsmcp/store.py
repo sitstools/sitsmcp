@@ -755,7 +755,7 @@ def store_chunks(
 	# column names come from the constant, never from input
 	columns = ", ".join(CHUNK_COLUMNS)
 	values = ", ".join(f":{column}" for column in CHUNK_COLUMNS)
-	
+
 	insert_chunk = text(
 		f"""
 		INSERT OR IGNORE INTO chunks

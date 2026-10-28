@@ -248,7 +248,7 @@ def test_second_tool_call_over_http_is_limited(monkeypatch, restore_mcp):
 
 	# install the MCP
 	access.install(server.mcp, settings)
-	
+
 	# create the HTTP app
 	app = server.mcp.http_app(
 		stateless_http=True, middleware=access.http_middleware(settings)
@@ -316,14 +316,14 @@ def test_search_over_http_reranks_for_the_client_of_the_request(
 	monkeypatch.setattr(operations, "rerankers_for", record)
 	monkeypatch.setenv("SITSMCP_DB_PATH", str(tmp_path / "unused.db"))
 	monkeypatch.setattr(store, "search_hybrid", lambda *args, **kwargs: [])
-	
+
 	# set the environment variables
 	key = "test-key-0123456789abcdef"
 	monkeypatch.setenv("SITSMCP_API_KEYS", f"chat:{key}")
-	
+
 	# update flask not atualizado
 	settings = Settings(_env_file=None, rate_limit_open=0, rate_limit_key=0)
-	
+
 	access.install(server.mcp, settings)
 	app = server.mcp.http_app(
 		stateless_http=True, middleware=access.http_middleware(settings)
@@ -343,7 +343,7 @@ def test_search_over_http_reranks_for_the_client_of_the_request(
 	for _ in range(100):
 		if uvi.started:
 			break
-		
+
 		time.sleep(0.05)
 
 	# assert the server started
@@ -360,7 +360,7 @@ def test_search_over_http_reranks_for_the_client_of_the_request(
 	try:
 		asyncio.run(search(None))
 		asyncio.run(search({"Authorization": f"Bearer {key}"}))
-	
+
 	finally:
 		uvi.should_exit = True
 		thread.join(timeout=10)

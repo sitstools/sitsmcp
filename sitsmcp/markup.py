@@ -103,7 +103,7 @@ def _code_language(pre: Tag) -> str:
 	# get language classes
 	after = classes[classes.index("sourceCode") + 1 :]
 
-	# assume the first non-code class is the language 
+	# assume the first non-code class is the language
 	return py_.find(after, lambda name: not name.startswith("code-")) or ""
 
 
@@ -289,7 +289,6 @@ def _block_tabset(
 	blocks = []
 
 	for label, pane in panes:
-
 		# add the label to the blocks
 		if only is None and label:
 			blocks.append(f"**{label}**")

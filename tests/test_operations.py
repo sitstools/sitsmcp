@@ -158,7 +158,7 @@ def _search_as(monkeypatch, client, cohere, default_model="fastembed/m"):
 
 	# arrange
 	rows = [_row(chunk_id="c0", text="a"), _row(chunk_id="c1", text="b")]
-	
+
 	monkeypatch.setattr(operations, "_settings", lambda: settings)
 	monkeypatch.setattr(operations, "_engine", lambda: None)
 	monkeypatch.setattr(store, "search_hybrid", lambda *args, **kwargs: rows)

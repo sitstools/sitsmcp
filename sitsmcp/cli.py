@@ -158,17 +158,15 @@ def _index_docs(engine: Engine, settings: Settings) -> int:
 		int: The number of chunks stored.
 	"""
 	# read the build date first
-	built_at =  _build_date(
-		source = "book",
-		fetch = data.fetch_book_build,
-		base_url = settings.sitsbook_url
+	built_at = _build_date(
+		source="book", fetch=data.fetch_book_build, base_url=settings.sitsbook_url
 	)
 
 	# parse documentation
 	chunks = data.parse_documentation(
-		base_url = settings.sitsbook_url,
-		chunk_size = settings.chunk_size,
-		chunk_overlap = settings.chunk_overlap
+		base_url=settings.sitsbook_url,
+		chunk_size=settings.chunk_size,
+		chunk_overlap=settings.chunk_overlap,
 	)
 
 	# delete existing chunks
@@ -202,9 +200,9 @@ def _index_reference(engine: Engine, settings: Settings) -> tuple[int, int]:
 	"""
 	# read the build date first
 	built_at = _build_date(
-		source = "function",
-		fetch = data.fetch_reference_build,
-		base_url = settings.sits_reference_url
+		source="function",
+		fetch=data.fetch_reference_build,
+		base_url=settings.sits_reference_url,
 	)
 
 	# parse reference
@@ -226,11 +224,11 @@ def _index_reference(engine: Engine, settings: Settings) -> tuple[int, int]:
 
 	# record the run
 	store.record_index(
-		engine = engine,
-		source = "function",
-		chunks = chunks,
-		built_at = built_at,
-		version =data.reference_version(records),
+		engine=engine,
+		source="function",
+		chunks=chunks,
+		built_at=built_at,
+		version=data.reference_version(records),
 	)
 
 	# return!
@@ -444,7 +442,7 @@ def info(
 	table.add_column("indexed", min_width=20, no_wrap=True)
 	table.add_column("built", min_width=20, no_wrap=True)
 	table.add_column("sits")
-	
+
 	# add the rows to the table
 	for source_row in report.sources:
 		table.add_row(

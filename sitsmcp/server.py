@@ -211,7 +211,7 @@ def _count_chunks(db_path: Path) -> dict[str, int]:
 	# count the chunks
 	try:
 		return store.chunk_counts(engine)
-	
+
 	finally:
 		engine.dispose()
 

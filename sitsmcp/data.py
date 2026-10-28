@@ -70,8 +70,8 @@ def _apply_overlap(chunks: list[str], chunk_overlap: int) -> list[str]:
 	Args:
 		chunks (list[str]): The ordered list of chunks.
 
-		chunk_overlap (int): Maximum number of trailing characters to 
-							 carry over between chunks.
+		chunk_overlap (int): Maximum number of trailing characters to
+			carry over between chunks.
 
 	Returns:
 		list[str]: The list of chunks with overlap applied.
@@ -145,13 +145,12 @@ def _split_with_separator(
 
 	# re-attach the period on sentence splits, and join them with a space
 	if sep == ". ":
-	
 		# add the period to the last piece
 		pieces = [
 			piece + "." if index < len(pieces) - 1 else piece
 			for index, piece in enumerate(pieces)
 		]
-	
+
 		# join the pieces with a space
 		join = " "
 
@@ -247,7 +246,6 @@ def _markdown_blocks(markdown: str) -> list[str]:
 
 		# check if the line is a blank line
 		if not is_fenced and not line.strip():
-
 			# add the lines to the blocks
 			if lines:
 				blocks.append("\n".join(lines))
@@ -299,14 +297,11 @@ def _fit_block(block: str, chunk_size: int) -> list[str]:
 	# iterate over the lines
 	for line in lines[1:-1]:
 		# a line larger than the room is cut into parts
-		parts = [
-			line[start : start + room] for start in range(0, len(line), room)
-		]
+		parts = [line[start : start + room] for start in range(0, len(line), room)]
 		parts = parts or [""]
 
 		# process parts
 		for part in parts:
-
 			# if the current chunk is larger than the room, add the current
 			# chunk to the pieces
 			if current and size + len(part) + 1 > room:
@@ -929,7 +924,6 @@ def chunk_markdown(markdown: str, chunk_size: int) -> list[str]:
 
 	# pack the blocks
 	for block in _markdown_blocks(markdown):
-
 		# iterate over the pieces
 		for piece in _fit_block(block, chunk_size):
 			# join the pieces
