@@ -4,8 +4,13 @@ services:
     container_name: sitsmcp-app
     expose:
       - "8000"
+    # settings come from .env; see .env.example
+    env_file:
+      - path: .env
+        required: false
     environment:
-      WEB_CONCURRENCY: "2"
+      # only nginx reaches the app (expose, not ports): trust its X-Forwarded-For
+      FORWARDED_ALLOW_IPS: "*"
     restart: unless-stopped
 
   nginx:
