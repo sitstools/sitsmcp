@@ -94,7 +94,7 @@ def client_of_request() -> str | None:
 	# find the request
 	try:
 		request = get_http_request()
-	
+
 	except RuntimeError:
 		return None
 
@@ -107,7 +107,7 @@ def http_middleware(settings: Settings) -> list[AsgiMiddleware]:
 
 	Args:
 		settings (Settings): The active settings.
-	
+
 	Returns:
 		list[AsgiMiddleware]: The ASGI middleware for the HTTP app.
 	"""
@@ -160,7 +160,7 @@ def _parse_entry(entry: str, index: int) -> "ApiKey":
 	# reject an empty entry
 	if not entry.strip():
 		raise ValueError(f"API key entry {position}: is empty")
-	
+
 	# reject an entry without a ':' between name and key
 	if not colon:
 		raise ValueError(f"API key entry {position}: has no ':' between name and key")
@@ -168,7 +168,7 @@ def _parse_entry(entry: str, index: int) -> "ApiKey":
 	# validate the pair
 	try:
 		return ApiKey(name=name, key=key)
-	
+
 	except ValidationError as error:
 		# get the problem
 		problem = _problem_of(error.errors(include_input=False)[0])
@@ -246,7 +246,7 @@ class ApiKey(BaseModel):
 		# reject whitespace
 		if re.search(r"\s", key):
 			raise ValueError("API key must not contain whitespace")
-		
+
 		# reject non-printable ASCII characters
 		if not key.isascii() or not key.isprintable():
 			raise ValueError("API key must be printable ASCII")
@@ -264,7 +264,7 @@ class ApiKeys(dict[str, str]):
 		Returns:
 			str: The API keys, each with a masked key.
 		"""
-		return "ApiKeys({" + ", ".join(f"{api_key.name!r}: '***'" for api_key in self) + "})"
+		return "ApiKeys({" + ", ".join(f"{name!r}: '***'" for name in self) + "})"
 
 	__str__ = __repr__
 
@@ -361,7 +361,7 @@ class ApiKeyMiddleware:
 
 		# compare with every key
 		api_key_valid = None
-		
+
 		for name, key in self.keys.items():
 			if hmac.compare_digest(api_key_value, key.encode()):
 				api_key_valid = name
@@ -414,7 +414,9 @@ class ToolRateLimit(Middleware):
 
 		# find idle clients
 		clients = [
-			client for client, calls in self._calls_by_client.items() if now - calls[-1] > WINDOW_SECONDS
+			client
+			for client, calls in self._calls_by_client.items()
+			if now - calls[-1] > WINDOW_SECONDS
 		]
 
 		# drop them

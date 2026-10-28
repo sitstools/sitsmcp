@@ -37,6 +37,7 @@ NB_KEY = "test-key-fedcba9876543210"
 #
 def _app(keys: dict[str, str]) -> TestClient:
 	"""Build a client of a tiny app that echoes the client."""
+
 	async def echo(request: Request) -> PlainTextResponse:
 		return PlainTextResponse(request.state.sitsmcp_client)
 
@@ -62,6 +63,7 @@ class _Clock:
 
 def _call(limit: ToolRateLimit) -> str:
 	"""Make one tool call through the limiter."""
+
 	async def call_next(context):
 		return "done"
 
@@ -86,6 +88,7 @@ def test_parse_api_keys():
 
 	# assert
 	assert keys == {"chat": CHAT_KEY, "nb": NB_KEY}
+	assert repr(keys) == str(keys) == "ApiKeys({'chat': '***', 'nb': '***'})"
 
 
 @pytest.mark.parametrize(
@@ -134,7 +137,7 @@ def test_parse_api_keys_never_shows_the_key(raw):
 	# assert
 	shown = repr(error.value) + str(error.value) + str(error.value.__context__)
 	assert not error.value.__cause__
-	
+
 	# check each key
 	for entry in raw.split(","):
 		key = entry.partition(":")[2].strip()
@@ -196,6 +199,7 @@ def test_health_is_exempt():
 	# assert
 	assert response.status_code == 200
 
+
 #
 # Tests - ToolRateLimit
 #
@@ -220,19 +224,19 @@ def test_open_use_limit(monkeypatch):
 def test_key_limit_is_separate(monkeypatch):
 	# arrange
 	limit = ToolRateLimit(open_limit=1, key_limit=300, clock=_Clock())
-	
+
 	_as(monkeypatch, "ip:1.2.3.4")
 	_call(limit)
-	
+
 	with pytest.raises(ToolError):
 		_call(limit)
 
 	# act
 	_as(monkeypatch, "key:chat")
-	
+
 	for _ in range(300):
 		_call(limit)
-	
+
 	with pytest.raises(ToolError) as error:
 		_call(limit)
 
@@ -246,18 +250,18 @@ def test_window_slides(monkeypatch):
 	# arrange
 	clock = _Clock()
 	_as(monkeypatch, "ip:1.2.3.4")
-	
+
 	limit = ToolRateLimit(open_limit=2, key_limit=0, clock=clock)
-	
+
 	_call(limit)
 	_call(limit)
 
 	# act
-	clock.now += 59.2 # move the clock forward by 59.2 seconds
+	clock.now += 59.2  # move the clock forward by 59.2 seconds
 
 	with pytest.raises(ToolError) as error:
 		_call(limit)
-	
+
 	clock.now += 0.8
 
 	# assert
