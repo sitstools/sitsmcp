@@ -56,7 +56,7 @@ For production environments, you can run the server behind `nginx` and gunicorn 
 docker compose up --build
 ```
 
-The Docker Compose builds an image for the `sitsmcp`, which bakes in the pre-built database and the embedding model. The Compose also stars an `nginx`, which exposes the server on port `80`.
+The Docker Compose builds an image for the `sitsmcp`, which bakes in the pre-built database and the embedding model. The Compose also stars an `nginx`, which exposes the server on port `80`. The settings of the app (API keys, rate limits, rerankers) are passed from the `.env` file at runtime, so no key is baked into the image.
 
 **Note**: Tune the number of gunicorn workers with `WEB_CONCURRENCY` (default `2`). Each worker loads its own copy of the embedding model (`~1.3 GB` of RAM), so raise this only in line with available memory.
 
@@ -68,7 +68,9 @@ The `sitsmcp` currently implements the following tools:
 | --- | --- |
 | `sits_get_function` | Full reference documentation for a named SITS function. |
 | `sits_search_docs` | Semantic search over the SITS book. |
+| `sits_search_functions` | Search the function reference by what a function does; call `sits_get_function` with the `function_name` of a hit. |
 | `sits_search_references` | Search academic articles that use SITS. |
+| `sits_index_info` | When each source was indexed, from which build and sits version, and how the server searches. It makes no network call. |
 
 ## Development
 
