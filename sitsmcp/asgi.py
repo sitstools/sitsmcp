@@ -9,9 +9,18 @@
 
 """sitsmcp - ASGI entrypoint for production (gunicorn/uvicorn)."""
 
+from sitsmcp import access
+from sitsmcp.config import Settings
 from sitsmcp.server import mcp
 
 #
 # ASGI application served by gunicorn
 #
-app = mcp.http_app(stateless_http=True)
+# fail at boot on a bad configuration
+settings = Settings()
+
+# limit the tool calls, and check the keys
+access.install(mcp, settings)
+
+# create the ASGI application
+app = mcp.http_app(stateless_http=True, middleware=access.http_middleware(settings))
