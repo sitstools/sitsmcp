@@ -13,8 +13,19 @@ from functools import lru_cache
 
 from sqlalchemy import Engine
 
-from sitsmcp import store
+from sitsmcp import access, store
 from sitsmcp.config import Settings
+from sitsmcp.models import (
+	Chapter,
+	FunctionDoc,
+	FunctionLookup,
+	Hit,
+	IndexInfo,
+	SearchResult,
+	Section,
+	SourceInfo,
+)
+from sitsmcp.rerank import active_rerankers, rerank_search, rerankers_for
 
 
 #
@@ -40,26 +51,8 @@ def _engine() -> Engine:
 	return store.create_db_engine(_settings().db_path)
 
 
-def _format_hit(hit: dict) -> str:
-	"""Format a search hit.
-
-	Args:
-		hit (dict): A chunk dictionary from ``store.search_hybrid``.
-
-	Returns:
-		str: The hit formatted as a string.
-	"""
-	title = hit.get("title") or "Untitled"
-	url = hit.get("url") or ""
-
-	header = f"# {title}\n{url}".rstrip()
-
-	# return!
-	return f"{header}\n\n{hit['text']}"
-
-
-def _search(query: str, source: str) -> list[str]:
-	"""Run a hybrid search.
+def _search(query: str, source: str) -> SearchResult:
+	"""Run a hybrid search, reranked for the client of the request.
 
 	Args:
 		query (str): User query.
@@ -67,35 +60,169 @@ def _search(query: str, source: str) -> list[str]:
 		source (str): The corpus tag to search.
 
 	Returns:
-		list[str]: Results formatted as strings.
+		SearchResult: The hits, best first, and the reranker that ordered them.
 	"""
 	settings = _settings()
 	engine = _engine()
+	rerankers = rerankers_for(settings, access.client_of_request())
 
-	hits = store.search_hybrid(
-		engine=engine,
-		model_name=settings.embedding_model,
-		query=query,
-		source=source,
-		top_k=settings.top_k,
-		candidate_k=settings.candidate_k,
-		rrf_k=settings.rrf_k,
+	# run the search
+	hits, reranker = rerank_search(
+		engine, settings, rerankers, query, source, settings.top_k
 	)
 
-	return [_format_hit(hit) for hit in hits]
+	# build the result
+	return SearchResult(hits=[hit_from_row(row) for row in hits], reranker=reranker)
 
 
 #
 # Public functions
 #
-def get_function(name: str) -> str:
-	"""Return the complete documentation for a SITS function.
+def hit_from_row(row: dict) -> Hit:
+	"""Build a hit from a chunk dictionary.
+
+	Args:
+		row (dict): A chunk dictionary from `store.search_hybrid`.
+
+	Returns:
+		Hit: The search hit.
+	"""
+	url = row.get("url") or ""
+
+	# locate the chunk in the book
+	chapter = None
+	if row.get("chapter_number") or row.get("chapter_title"):
+		chapter = Chapter(
+			number=row.get("chapter_number"),
+			title=row.get("chapter_title"),
+		)
+
+	# locate the chunk in the section
+	section = None
+	if row.get("section_id"):
+		section = Section(
+			id=row["section_id"],
+			number=row.get("section_number"),
+			title=row.get("section_title"),
+		)
+
+	# build the hit
+	return Hit(
+		id=row["chunk_id"],
+		source=row["source"],
+		title=row.get("title") or "Untitled",
+		chapter=chapter,
+		section=section,
+		url=url,
+		page_url=row.get("page_url") or url,
+		language=row.get("language"),
+		text=row["text"],
+		score=row["score"],
+		rerank_score=row.get("rerank_score"),
+		function_name=row.get("function_name"),
+	)
+
+
+def format_hit(hit: Hit) -> str:
+	"""Format a search hit as text.
+
+	Args:
+		hit (Hit): The hit.
+
+	Returns:
+		str: The hit formatted as a string.
+	"""
+	header = f"# {hit.title}\n{hit.url}".rstrip()
+
+	# return!
+	return f"{header}\n\n{hit.text}"
+
+
+def format_function(lookup: FunctionLookup) -> str:
+	"""Format a function lookup as text.
+
+	Args:
+		lookup (FunctionLookup): The lookup result.
+
+	Returns:
+		str: Function documentation if found, otherwise a not-found message.
+	"""
+	if lookup.function is None:
+		# inform user function was not found
+		return (
+			f"No SITS function named '{lookup.name}' was found. "
+			"Use the exact function name (for example 'sits_classify')."
+		)
+
+	# return!
+	return lookup.function.text
+
+
+def index_info() -> IndexInfo:
+	"""Report when the index was built and how it ranks and searches.
+
+	Returns:
+		IndexInfo: The sources with their dates, the embedding model and the
+			active key and default rerankers, each `None` when off.
+	"""
+	settings = _settings()
+
+	# read the rows
+	rows = store.index_info(_engine())
+
+	# return!
+	return IndexInfo(
+		sources=[SourceInfo(**row) for row in rows],
+		embedding_model=settings.embedding_model,
+		**active_rerankers(settings),
+	)
+
+
+def format_index_info(info: IndexInfo) -> str:
+	"""Format the index report as text.
+
+	Args:
+		info (IndexInfo): The report.
+
+	Returns:
+		str: One line per source, then the embedding model and the two rerankers,
+			each `None` when off.
+	"""
+	lines = []
+
+	# describe each source
+	for source in info.sources:
+		# build the source line
+		line = (
+			f"{source.source}: {source.chunks} chunks, "
+			f"indexed {source.indexed_at or 'unknown'}, "
+			f"built {source.built_at or 'unknown'}"
+		)
+
+		# add the version if it is known
+		if source.version:
+			line += f", sits {source.version}"
+
+		# add the line to the lines
+		lines.append(line)
+
+	# describe the embedding model and the rerankers
+	lines.append(f"embedding model: {info.embedding_model}")
+	lines.append(f"key reranker: {info.key_reranker or 'none'}")
+	lines.append(f"default reranker: {info.default_reranker or 'none'}")
+
+	# return!
+	return "\n".join(lines)
+
+
+def get_function(name: str) -> FunctionLookup:
+	"""Look up the complete documentation for a SITS function.
 
 	Args:
 		name (str): Function name (e.g., ``sits_classify``).
 
 	Returns:
-		str: FUnction documentation if found, otherwise a not-found message.
+		FunctionLookup: The lookup; ``function`` is ``None`` if not found.
 	"""
 	engine = _engine()
 
@@ -104,23 +231,19 @@ def get_function(name: str) -> str:
 
 	# check if the function was found
 	if doc is None:
-		# inform user function was not found
-		return (
-			f"No SITS function named '{name}' was found. "
-			"Use the exact function name (for example 'sits_classify')."
-		)
+		return FunctionLookup(name=name, function=None)
 
-	return doc
+	return FunctionLookup(name=name, function=FunctionDoc(**doc))
 
 
-def search_docs(query: str) -> list[str]:
+def search_docs(query: str) -> SearchResult:
 	"""Search the SITS book.
 
 	Args:
 		query (str): User query.
 
 	Returns:
-		list[str]: Results formatted as strings.
+		SearchResult: The hits, best first.
 	"""
 	return _search(
 		query=query,
@@ -128,14 +251,29 @@ def search_docs(query: str) -> list[str]:
 	)
 
 
-def search_references(query: str) -> list[str]:
+def search_functions(query: str) -> SearchResult:
+	"""Search the SITS function reference.
+
+	Args:
+		query (str): User query.
+
+	Returns:
+		SearchResult: The hits, best first.
+	"""
+	return _search(
+		query=query,
+		source="function",
+	)
+
+
+def search_references(query: str) -> SearchResult:
 	"""Search the indexed reference articles.
 
 	Args:
 		query (str): User query.
 
 	Returns:
-		list[str]: Results formatted as strings.
+		SearchResult: The hits, best first.
 	"""
 	return _search(
 		query=query,
