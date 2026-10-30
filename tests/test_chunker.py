@@ -36,14 +36,38 @@ def test_short_text_is_a_single_chunk():
 	assert chunks == [text]
 
 
-def test_long_text_splits_and_respects_chunk_size():
-	"""Test that a long text splits and respects the chunk size."""
+def _long_text() -> str:
+	"""Build a long text with a long paragraph and short paragraphs."""
+	sentence = "Sentence {} of a long paragraph."
+
+	first = " ".join(sentence.format(index) for index in range(300))
+	second = "\n\n".join(sentence.format(index) for index in range(30))
+
+	return first + "\n\n" + second
+
+
+def test_chunks_never_exceed_chunk_size():
+	"""Test that no chunk exceeds the chunk size, overlap included."""
 	# arrange
-	paragraph = ". ".join(f"sentence number {i}" for i in range(200))
+	text = _long_text()
 
 	# act
-	chunks = data.chunk_text(paragraph, chunk_size=100, chunk_overlap=20)
+	chunks = data.chunk_text(text, chunk_size=1000, chunk_overlap=200)
+
+	# assert
+	assert max(len(chunk) for chunk in chunks) <= 1000
+
+
+def test_overlap_is_carried_once_between_neighbours():
+	"""Test that the end of a chunk is carried into the next chunk."""
+	# arrange
+	text = _long_text()
+
+	# act
+	chunks = data.chunk_text(text, chunk_size=1000, chunk_overlap=200)
 
 	# assert
 	assert len(chunks) > 1
-	assert all(len(chunk) <= 100 + 20 + 1 for chunk in chunks)
+
+	for index in range(len(chunks) - 1):
+		assert chunks[index].strip()[-50:] in chunks[index + 1]

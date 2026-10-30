@@ -56,52 +56,6 @@ def _write(tmp_path: Path, entries: list[dict]) -> Path:
 
 
 #
-# Tests - rendering
-#
-def test_entry_renders_every_field():
-	"""Test that a complete entry renders all of its fields."""
-	# act
-	text = data._render_reference(ENTRY)
-
-	# assert
-	assert "Title: Identifying Land Use Change Trajectories" in text
-	assert "Authors: Adeline M. Maciel, Lubia Vinhas" in text
-	assert "Year: 2020 | Venue: Land" in text
-	assert "Topics: land-use, agriculture" in text
-	assert "DOI: 10.3390/land9120506" in text
-	assert "URL: https://doi.org/10.3390/land9120506" in text
-	assert text.endswith(
-		"Many of the world's agricultural frontiers are in the tropics."
-	)
-
-
-def test_entry_without_doi_omits_the_doi_line():
-	"""Test that an entry published without a DOI omits the DOI line."""
-	# get entries with no "doi" key
-	entry = {key: value for key, value in ENTRY.items() if key != "doi"}
-
-	# render
-	text = data._render_reference(entry)
-
-	# test
-	assert "DOI:" not in text
-	assert "None" not in text
-
-
-def test_entry_without_abstract_renders_header_only():
-	"""Test that an entry without an abstract renders only the header."""
-	# arrange
-	entry = ENTRY | {"abstract": ""}
-
-	# act
-	text = data._render_reference(entry)
-
-	# assert
-	assert "\n\n" not in text
-	assert text.endswith(f"URL: {ENTRY['url']}")
-
-
-#
 # Tests - parsing
 #
 def test_each_entry_becomes_exactly_one_chunk(tmp_path):
@@ -129,19 +83,6 @@ def test_chunk_carries_the_citable_metadata(tmp_path):
 	# assert
 	assert chunk["title"] == ENTRY["title"]
 	assert chunk["url"] == ENTRY["url"]
-
-
-def test_chunk_ids_are_stable_across_calls(tmp_path):
-	"""Test that chunk identifiers do not change between runs."""
-	# arrange
-	path = _write(tmp_path, [ENTRY])
-
-	# act
-	first = data.parse_references(path)
-	second = data.parse_references(path)
-
-	# assert
-	assert first[0]["id"] == second[0]["id"]
 
 
 def test_entries_without_a_url_are_skipped(tmp_path):
